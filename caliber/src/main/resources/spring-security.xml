@@ -11,8 +11,10 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 			error-page="/403" />
 		<security:form-login login-page="/" />
 
-		<!-- enable SSL -->
-   		<security:intercept-url pattern="/**" requires-channel="https" />
+		<!-- enable SSL and require authentication -->
+		<security:intercept-url pattern="/**"
+			requires-channel="https"
+			access="ROLE_VP,ROLE_PANEL,ROLE_QC,ROLE_TRAINER,ROLE_STAGING" />
 
 		<security:csrf disabled="true" />
 		<security:logout invalidate-session="true"
