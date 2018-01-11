@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
 
@@ -198,6 +199,51 @@ public class EvaluationService {
 	public Note findQCBatchNotes(Integer batchId, Integer week) {
 		log.debug(FINDING_WEEK + week + " QC batch notes for batch: " + batchId);
 		return noteDAO.findQCBatchNotes(batchId, week);
+	}
+	
+	/**
+	 * UPDATE NOTE
+	 * 
+	 * @param note
+	 */
+	public void calculateAverage(Note note) {
+		log.debug("Calculating Average of note: " + note);
+		double average = 0.0;
+		List<Note> noteList = noteDAO.findAllQCTraineeNotes(note.getBatch().getBatchId(), new Integer(note.getWeek()));
+		int denominator = noteList.size();
+		for(Note currentNote :noteList){
+			switch (currentNote.getQcStatus()) {
+			case Superstar:
+				average += 4;
+				break;
+			case Good:
+				average += 3;
+				break;	
+			case Average:
+				average += 2;
+				break;	
+			case Poor:
+				average += 1;
+				break;
+			default:
+				denominator--;
+				break;
+			}
+		}
+		average = average / denominator;
+		if(average > 2.5){
+			note.setQcStatus(QCStatus.Good);
+		}
+		else if(average >= 2 && average <= 2.5){
+			note.setQcStatus(QCStatus.Average);
+		}
+		else if(average > 0 && average < 2){
+			note.setQcStatus(QCStatus.Poor);
+		}
+		else{
+			note.setQcStatus(QCStatus.Undefined);
+		}
+		noteDAO.update(note);
 	}
 
 	/**

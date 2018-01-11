@@ -277,6 +277,7 @@ BEGIN
     SET FLAG_STATUS = 'NONE' 
     WHERE TRAINING_STATUS = 'Dropped';
 END;
+/
 
 CREATE OR REPLACE TRIGGER remove_flag_on_emp
 BEFORE UPDATE ON "CALIBER"."CALIBER_TRAINEE"
@@ -286,6 +287,8 @@ BEGIN
     SET FLAG_STATUS = 'NONE' 
     WHERE TRAINING_STATUS = 'Employed';
 END;
+/
+
 --------------------------------------------------------
 --  DDL for Table CALIBER_GRADE
 --------------------------------------------------------

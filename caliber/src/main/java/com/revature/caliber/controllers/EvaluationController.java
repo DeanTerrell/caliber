@@ -130,6 +130,20 @@ public class EvaluationController {
 		evaluationService.update(note);
 		return new ResponseEntity<>(note, HttpStatus.CREATED);
 	}
+	
+	/**
+	 * Calculating the average status grade of the given note
+	 * 
+	 * @param Note to calculate
+	 * @return The note with the new average saved and Status Code OK
+	 */
+	@RequestMapping(value = "/note/calculateAverage", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER','PANEL')")
+	public ResponseEntity<Note> calculateAverage(@Valid @RequestBody Note note) {
+		log.info("Calculating Average: " + note);
+		evaluationService.calculateAverage(note);
+		return new ResponseEntity<>(note, HttpStatus.OK);
+	}
 
 	/*
 	 *******************************************************
