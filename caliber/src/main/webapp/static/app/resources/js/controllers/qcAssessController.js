@@ -296,7 +296,16 @@ angular
 													$scope.faces[index].qcStatus = status;
 													// Save note
 													$scope.saveTraineeNote(index);
+													
 													$log.debug($scope.faces[index]);
+													//Calculate batch average for QC week
+													caliberDelegate.qc.calculateQCAverage($scope.bnote)
+													.then(
+															function(batchNote){
+																$scope.bnote = batchNote;
+																$scope.qcBatchAssess = batchNote.qcStatus;
+															}
+													);
 													break;
 												}
 											}
@@ -462,6 +471,7 @@ angular
 							$scope.processingNote = false;
 						}
 					}
+					
 
 					/***********************************************************
 					 * Save Button **

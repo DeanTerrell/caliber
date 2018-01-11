@@ -197,6 +197,19 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
+	//calculate batch average for QC week
+	qc.calculateQCAverage=function(noteObj){
+		return $http({
+			url: "/note/calculateAverage",
+			method: "POST"
+		}).then(function(response) {
+			$log.debug("Batch average calculated successfully");
+			$log.debug(response);
+		}, function(response){
+			$log.error("There was an error: " + response.status);
+		});
+	};
+	
 	//gets QCtrainee note
 	qc.getQCTraineeNote = function(traineeId,week){
 		return $http({

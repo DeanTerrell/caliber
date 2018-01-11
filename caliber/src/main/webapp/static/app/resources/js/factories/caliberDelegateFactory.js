@@ -336,6 +336,10 @@ angular.module("delegate")
 			delegate.qc.updateNote = function(noteObj) {
 				return qcFactory.updateNote(noteObj);
 			};
+			//Calculate batch average for QC
+			delegate.qc.calculateQCAverage = function(noteObj) {
+				return qcFactory.calculateQCAverage(noteObj);
+			};
 
 			delegate.qc.batchNote = function(batchId, week) {
 				return qcFactory.getQCBatchNote(batchId, week);
