@@ -19,7 +19,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="trainee in currentBatch.trainees track by $index">
+						<!-- <tr ng-repeat="trainee in currentBatch.trainees track by $index">
 							<td class="col-sm-2 col-md-2 col-lg-2" ng-click="toggleColor(trainee, $index)">{{ trainee.name }}</td>
 							<td class="col-sm-1 col-md-1 col-lg-1"><span ng-init="init(trainee, $index)" class="glyphicon glyphicon-flag"></span>
 							<form class="commentForm" ng-submit="updateFlag(trainee)"
@@ -28,13 +28,13 @@
 											ng-model="trainee.flagNotes"> <input type="submit"
 											value="Save"> <span ng-click="closeComment()"
 											class="glyphicon glyphicon-remove-sign"></span>
-									</form></td>
+									</form> </td>
 							<td>{{faces[$index].qcStatus ? faces[$index].qcStatus :
 								"-"}}</td>
 							<td class="col-sm-9 col-md-9 col-lg-9">{{faces[$index].content
 								? faces[$index].content : "-"}}</td>
 							<td><ul class="nav nav-tabs">
-						</tr>
+						</tr> -->
 					</tbody>
 				</table>
 				<!-- QC batch note -- overall qualitative feedback -->

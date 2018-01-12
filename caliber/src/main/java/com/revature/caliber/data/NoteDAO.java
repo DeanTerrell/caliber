@@ -289,7 +289,7 @@ public class NoteDAO {
 	 */
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public List<Note> findAllQCTraineeNotes(Integer batchId, Integer week) {
+	public List<Note>findAllQCTraineeNotes(Integer batchId, Integer week) {
 		log.info("Find All QC Trainee notes");
 		return sessionFactory.getCurrentSession().createCriteria(Note.class)
 				.createAlias(TRAINEE, "t", JoinType.LEFT_OUTER_JOIN)
@@ -298,6 +298,37 @@ public class NoteDAO {
 				.add(Restrictions.eq(QC_FEEDBACK, true)).add(Restrictions.eq("type", NoteType.QC_TRAINEE))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).addOrder(Order.asc("week")).list();
 	}
+	
+	//****************************************************************************************************************************
+	//****************************************************************************************************************************
+	//testing area
+	//****************************************************************************************************************************
+	
+	/**
+	 * Returns all QC notes for trainee in the batch for the week
+	 * 
+	 * @batchId
+	 * @return
+	 */
+	
+	//notes: we do not need the week parameter because we need to return all the values
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Note> findAllQCTraineeNotesForAllWeeks(Integer batchId) {
+		log.info("Find All QC Trainee notes");
+		return sessionFactory.getCurrentSession().createCriteria(Note.class)
+				.createAlias(TRAINEE, "t", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped)).createAlias("t.batch", "b")
+				.add(Restrictions.eq(B_BATCH_ID, batchId))
+				.add(Restrictions.eq(QC_FEEDBACK, true)).add(Restrictions.eq("type", NoteType.QC_TRAINEE))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).addOrder(Order.asc("week")).list(); //do we need to add restriction for the week to sort it?
+	}
+	
+	//*****************************************************************************************************************************
+	//*****************************************************************************************************************************
+	// end of testing 
+	//*****************************************************************************************************************************
 
 	/**
 	 * Returns all QC notes for trainee in the batch

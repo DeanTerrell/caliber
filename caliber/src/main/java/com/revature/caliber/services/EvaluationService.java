@@ -223,6 +223,7 @@ public class EvaluationService {
 		log.debug(FINDING_WEEK + week + " batch notes for batch: " + batchId);
 		return noteDAO.findAllBatchNotes(batchId, week);
 	}
+	
 
 	/**
 	 * Find all qc trainee notes
@@ -232,6 +233,25 @@ public class EvaluationService {
 		log.debug("Find All QC Trainee Notes");
 		return noteDAO.findAllQCTraineeNotes(batchId, week);
 	}
+	
+	
+	//*******************************************************************************
+	//*******************************************************************************
+	//testing
+	//*******************************************************************************
+	
+	/**
+	 * Find all qc trainee notes
+	 * @return
+	 */
+	public List<Note> findAllQCTraineeNotesForAllWeeks(Integer batchId) {
+		log.debug("Find All QC Trainee Notes");
+		return noteDAO.findAllQCTraineeNotesForAllWeeks(batchId);
+	}
+	//*******************************************************************************
+	//end of testing
+	//*******************************************************************************
+	
 	public List<Note> findAllIndividualNotesOverall(Integer traineeId){
 		log.debug("Find Overall notes for trainee " + traineeId);
 		return noteDAO.findAllPublicIndividualNotes(traineeId);

@@ -144,7 +144,7 @@ public class ReportingController {
 		}
 	}
 
-	@RequestMapping(value = "/all/reports/batch/{batchId}/overall/bar-batch-overall", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "{batchId}/overall/bar-batch-overall", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING', 'PANEL')")
 	public ResponseEntity<Map<String, Double>> getBatchOverallBarChart(@PathVariable Integer batchId) {
 		log.info("getBatchOverallBarChart   ===>   /all/reports/batch/{batchId}/overall/bar-batch-overall");

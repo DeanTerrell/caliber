@@ -216,7 +216,29 @@ public class EvaluationController {
 		log.info("Getting all trainee notes by QC");
 		return new ResponseEntity<>(evaluationService.findAllQCTraineeNotes(batchId, week), HttpStatus.OK);
 	}
-
+	
+	//********************************************************************************************
+	//********************************************************************************************
+	//testing in progress
+	//********************************************************************************************
+	
+	/**
+	 * Find all QC trainee notes in a batch for the week
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/qc/note/trainee/{batchId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING','PANEL')")
+	public ResponseEntity<List<Note>> getAllQCTraineeNotesForAllWeeks(@PathVariable Integer batchId) {
+		log.info("Getting all trainee notes by QC");
+		return new ResponseEntity<>(evaluationService.findAllQCTraineeNotesForAllWeeks(batchId), HttpStatus.OK);
+	}
+	
+	//********************************************************************************************
+	//end of testing
+	//********************************************************************************************
+	
+	
 	/**
 	 * Find all QC trainee notes in a batch
 	 * 
